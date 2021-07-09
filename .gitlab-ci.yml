@@ -7,7 +7,8 @@ workflow:
 stages:
   - lint
 
-build-job:
+shellcheck:
   stage: lint
+  image: registry.gitlab.com/pipeline-components/shellcheck:latest
   script:
     - shellcheck ./rofi-vpn
