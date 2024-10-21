@@ -65,10 +65,7 @@ function toggle_vpn_connection() {
 function extract_connection_name_from_result() {
     local result="$1"
 
-    # I don't know how to use plain bash to remove the prefix so I'm
-    # using sed:
-    # shellcheck disable=SC2001
-    sed -e 's/^.* \([^ ]\+\)$/\1/' <<< "$result"
+    echo "$result" | sed -e "s/^${ACTIVE_PREFIX}//" -e "s/^${INACTIVE_PREFIX}//"
 }
 
 # Execute the `rofi` command. The first argument of the function is
