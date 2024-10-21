@@ -32,6 +32,8 @@ ACTIVE_PREFIX="  ✓ "
 # What to show in front of an inactive VPN connection:
 INACTIVE_PREFIX="    "
 
+ARGS=("$@")
+
 # Display on standard output all VPN connections, one per line. An
 # active VPN connection is prefixed with `ACTIVE_PREFIX` and an inactive
 # one is prefixed with `INACTIVE_PREFIX`.
@@ -72,13 +74,14 @@ function extract_connection_name_from_result() {
 # used as lines to select from.
 function start_rofi() {
     local content="$1"
-    echo -e "$content" | rofi -dmenu
+    echo -e "$content" | rofi -dmenu "${ARGS[@]}"
 }
 
 # List the VPN connections and let the user toggle one using rofi.
 function main() {
     local connections
     local result
+    echo "Args: ${ARGS[@]}"
 
     connections=$(list_vpn_connections)
     result=$(start_rofi "$connections")
